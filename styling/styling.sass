@@ -1,0 +1,595 @@
+@import /home/roger/Desktop/portfolio/1-tools/bourbon/bourbon
+@import /home/roger/Desktop/portfolio/1-tools/animations/animations.scss
+@import /home/roger/Desktop/portfolio/1-tools/animations/bounceOut.scss
+@import /home/roger/Desktop/portfolio/styling/spinner.scss
+
+$bgcolor: #e5eaee
+$accent-light: #e1c184
+$accent: #c99065
+$documentBackgroundColor: #fff
+
+// Placeholders
+
+%background-image
+    background:
+        repeat: no-repeat, no-repeat
+        size: 50px 50px, cover
+        position: 30px 50px, 50% 50%
+        blend-mode: overlay, normal
+
+// header-section
+
+
+header 
+    @extend %background-image
+    background: 
+        position: 30px 20px, 50% 50%
+        image: url(/img/logo.svg), url(/img/hero-bg.jpg)
+    padding-bottom: 50px
+
+    .logo 
+        height: 50px
+        width: 50px
+        float: left
+        margin: 10px 0 0 30px
+
+    nav 
+        float: right
+        padding: 30px 30px 0 0
+ 
+        a 
+            display: inline-block
+            margin-left: 30px
+            color: rgba(0, 0, 0, 0.7)
+            font-size: 14px
+            font-weight: 700
+            text-transform: uppercase
+
+header a:hover 
+    color: rgba(0, 0, 0, 1)
+
+
+h1 
+    text-align: center
+    font-size: 72px
+    font-weight: 700
+    color: white
+    text-transform: uppercase
+    letter-spacing: 0.05em
+    margin-bottom: 20px
+    clear: both
+    padding-top: 100px
+
+    span 
+        display: inline-block
+        padding: 0.2em 0.5em
+        border: white solid 10px
+
+   
+
+.kicker 
+    text-align: center
+    font-weight: 700
+    text-transform: uppercase
+    letter-spacing: 0.05em
+    color: white
+    line-height: 1
+
+@media (max-width: 640px)
+    header
+        background:
+            position: 50% 20px, 50% 50%
+        
+        nav 
+            float: none
+            text-align: center 
+            padding-top: 90px
+            
+        h1
+            padding-top: 0px
+
+       
+   
+/* About section */
+section 
+
+    h3 
+        text-align: center
+        font-size: 14px
+        font-weight: 700
+        text-transform: uppercase
+        letter-spacing: 0.05em
+        color: #e1c184
+        padding: 100px 0 30px
+
+.face-lockup
+    max-width: 780px
+    +display(flex)
+    margin: 0 auto
+    +align-items(center)
+    +justify-content(space-between)
+
+    .face-img    
+        border-radius: 50%
+        background-size: cover
+        background-position: center
+        background: url(/img/travitar.jpg)
+        +size(200px)
+        +order(3)
+
+    [class^="icon-"]
+        +size(100px)
+        background: $bgcolor
+        border-radius: 50%
+
+        path 
+            fill: #c99065
+            
+        &.icon-pencil
+            +order(1)
+        &.icon-mouse
+            +order(2)
+        &.icon-browser
+            +order(4)
+        &.icon-video
+            +order(5)
+
+
+@media screen and (max-width: 650px) 
+    .face-lockup
+        display: block
+        text-align: center
+
+        div
+            display: inline-block
+
+        .face-img
+            display: block
+            background:
+                position: center center
+                repeat: no-repeat
+            margin: 0 auto 30px
+
+        [class^="icon-"]
+            margin: 10px 9%
+
+
+
+.blurb 
+    max-width: 620px
+    padding: 0 15px
+    margin: 50px auto    
+    font-size: 24px
+    text-align: center
+    font-weight: 300
+
+
+.skill-lockup
+    max-width: 700px
+    margin: 100px auto 
+    color: #999
+    +clearfix
+
+    .skill-unit
+        width: 350px
+        float: left
+    
+    .skill-icons
+        font-size: 0
+        margin: 0px 0 30px
+
+        span
+            display: inline-block
+            +size(14px)
+            background-color: #c99065
+            margin-right: 8px
+            border-radius: 50%
+
+            &:after
+                content: ''
+                display: block
+                +size(10px)
+                background: #fff
+                border-radius: 50%
+                margin: 2px
+
+        @for $i from 1 through 10
+            &.skill-#{$i} span:nth-child(n+#{$i+1})
+                @extend %skill-color
+
+%skill-color
+    background: #e5eaee
+
+// Work Section
+
+.alt-section
+    background: $bgcolor
+
+.section-work
+    overflow-x: hidden
+
+.work-belt
+    width: 200%
+    position: relative
+    left: 0%
+    +transition(all 800ms)
+
+.thumb-wrap, .work-wrap
+    width: 50%
+    float: left
+
+.thumb-container
+    max-width: 960px
+    margin: 0px auto
+    padding-bottom: 100px
+    +clearfix 
+
+    .thumb-unit
+        display: block
+        width: 25%
+        float: left
+        position: relative
+        padding-top: 16%
+        cursor: pointer
+        background: 
+            position: center center 
+            repeat: no-repeat
+            size: cover
+
+        +perspective(300)
+
+        @media screen and (max-width: 760px)
+            width: 50%
+            padding-top: 26%
+
+
+        .thumb-overlay
+            +position(absolute, 0% 0px null 0px)
+            height: 100%
+            background: fade-out($accent, 0.1)
+            +display(flex)
+            +align-items(center)
+            +justify-content(space-around) 
+            +transform(matrix3d(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1))
+            opacity: 0
+            +transition(opacity, 300ms, ease-in, 500ms)
+
+
+            strong
+                display: block
+                padding: 0px 20px
+                color: white
+                font:
+                    weight: 300
+                    size: 24px
+                text-transform: uppercase
+                line-height: 1.2
+
+        &:hover 
+            z-index: 2
+
+            .thumb-overlay
+                @extend %animation
+                opacity: 1
+
+.work-container
+    max-width: 600px
+    margin: 0px auto
+    position: relative
+    display: none 
+
+    h4 
+        color: $accent
+        font-weight: 300
+        text-transform: uppercase
+        font-size: 24px
+        line-height: 1.2
+        margin: 0 0 20px
+
+    img 
+        max-width: 100% 
+        margin-bottom: 20px
+
+    .work-return
+        +size(40px)
+        cursor: pointer
+        opacity: 0.5
+        +position(absolute, -5px null null -60px)
+
+        path
+            fill: rgba(0,0,0,0.4)
+
+        &:hover
+            opacity: 1 
+
+@media screen and (max-width: 740px)
+    .work-container
+        
+        .work-return
+            left: 0px
+
+        h4
+            margin-left: 60px
+
+@media screen and (max-width: 541px)
+    .skill-lockup
+        width: 220px
+
+        .skill-unit
+            width: 220px
+
+// Client-Section
+
+.section-clients
+    position: relative
+
+.clients-belt
+    width: 100%
+    position: relative
+
+    .client-unit
+        max-width: 750px
+        margin: 50px auto
+        position: relative
+        z-index: 1
+        display: none
+        
+        &.active-client
+            +display(flex)
+            @extend %bounceOut
+
+        .client-face
+            min-width: 300px
+            text-align: center
+
+            img
+                max-width: 100px
+                border-radius: 50%
+
+
+            .client-name
+                display: block
+                text-transform: uppercase
+                font-weight: 400
+                letter-spacing: 1px
+
+            .client-title
+                font-style: normal
+                font-size: 12px
+                color: #999
+
+        .client-content
+            font-size: 18px
+            line-height: 36px
+            font-weight: 300
+            margin-top: -10px
+            position: relative
+
+// Logos
+
+.clients-logo
+    position: relative
+    z-index: 3
+    max-width: 750px
+    margin: 50px auto 100px
+    +display(flex)
+    +align-items(flex-end)
+    +justify-content(space-around)
+
+    .client-logo
+        cursor: pointer
+        margin: 0px 20px
+        padding-bottom: 10px
+        border-bottom: 4px solid transparent
+        opacity: 0.5
+        
+
+        &.active-client
+            border-bottom: 4px solid $accent
+            opacity: 1
+
+.client-quote-mark
+    +position(absolute, -18px null null -15px)
+    +size(60px)
+    z-index: -1
+    opacity: 0.3
+    path
+        fill: $accent
+
+// Controls
+
+.client-controls
+    +position(absolute, 0px 0px 0px 0px)
+    z-index: 2
+
+    > div
+        +size(40px)
+        margin-top: -20px
+        cursor: pointer
+
+        path
+            fill: $accent
+
+    .client-control-next
+        +position(absolute, 50% 10px null null)
+
+    .client-control-prev
+        +position(absolute, 50% null null 10px)
+
+// Clients Mobile Nav 
+
+.clients-mobile-nav
+    text-align: center
+    display: none  
+
+    span
+        cursor: pointer
+        display: inline-block
+        +size(16px)
+        border-radius: 50%
+        border: solid 2px $bgcolor
+        margin: 0px 10px
+
+        &.active-client
+            border-color: $accent
+
+
+@media (max-width: 750px)
+    .client-controls
+        display: none
+
+    .clients-belt
+
+        .client-unit.active-client
+            display: block
+            position: relative
+            margin-left: 0px
+            left: auto 
+        
+        .client-face
+            margin-bottom: 20px
+
+        .client-content
+            padding: 0px 30px
+            max-width: 400px
+            margin: 0px auto
+
+        .client-quote-mark
+            left: 15px
+
+    .clients-logo
+        display: none 
+    
+    .clients-mobile-nav
+        display: block
+
+// Contact
+
+.section-contact
+    text-align: center 
+
+.social-links
+    max-width: 700px
+    margin: 0px auto 50px
+    +display(flex)
+    +justify-content(space-around)
+    +flex-wrap(wrap)
+
+    a
+        display: block 
+        +size(50px)
+        line-height: 50px
+        margin: 20px
+        +transition()
+
+        &:hover
+            +transform(scale(1.2))
+
+.bar
+    width: 250px
+    height: 0px
+    border-top: 4px solid $accent 
+    margin: 0px auto 70px
+
+.biglink
+    display: inline-block
+    font: 
+        size: 52px
+        weight: 100
+    color: $accent
+    line-height: 1  
+    margin: 0 auto  
+    padding-bottom: 50px
+    width: 90%
+    text-decoration: none
+
+// Form-section
+
+form 
+    max-width: 450px
+    margin: 0 auto 50px
+
+    input, textarea
+        border: 3px solid $accent
+        width: 100%
+        +box-sizing(border-box)
+        padding: 10px
+
+        &:focus
+            outline: none 
+            border-color: $accent-light
+
+    textarea
+        height: 10em
+
+        .submit-wrap
+            text-align: right
+
+    [type="submit"]
+        background: $accent
+        color: white
+        font-size: 18px
+        text-transform: uppercase
+        width: 33%
+
+
+        &:hover
+            background: $accent-light
+
+    .contact-info-group
+
+        label
+            width: 50%
+            float: left
+            +box-sizing(border-box)
+
+            &:nth-child(1)
+                padding-right: 10px
+            
+            &:nth-child(2)
+                padding-left: 10px
+    
+    label
+        display: block
+        margin-bottom: 20px
+
+        span
+            display: block 
+        
+
+// Footer    
+footer 
+    background: url(/img/logo.svg) no-repeat, url(/img/hero-bg.jpg) center center
+    background-size: 50px 50px, cover
+    background-position: 30px 50px, 50% 50%
+    background-blend-mode: overlay, normal 
+   
+    .lockup 
+        padding: 50px 30px
+        +clearfix
+
+    .content-wrap 
+        float: left
+        margin-left: 80px
+       
+    .copyright 
+        margin: 0
+        text-transform: uppercase
+        font-size: 12px
+        color: rgba(0, 0, 0, 0.4)
+       
+    nav 
+        float: right
+        margin: 5px
+        
+        a 
+            display: inline-block
+            margin-left: 10px
+            color: rgba(0, 0, 0, 0.5)
+            font-size: 14px
+            font-weight: 700
+            text-transform: uppercase
+ 
+        a:hover 
+            color: rgba(0, 0, 0, 0.7)
+           
